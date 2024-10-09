@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://btpwvceblbai2"]
+
+[ext_resource type="Script" path="res://Levels/level.gd" id="1_wrgwn"]
+[ext_resource type="PackedScene" uid="uid://yu2ksfqa2dr6" path="res://UI/pause_menu.tscn" id="4_4v5w5"]
+[ext_resource type="PackedScene" uid="uid://b5yfb4336mem1" path="res://Scenes/main1.tscn" id="5_fw836"]
+[ext_resource type="PackedScene" uid="uid://cyrfcw21ya4g4" path="res://Entities/Enemies/enemy.tscn" id="5_o7e0w"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_vnmdn"]
+load_path = "res://.godot/imported/Background.png-6f874b17b969177a13b15e8e7b5e6a8f.ctex"
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_1n5jn"]
+distance = 2.0
+
+[node name="Level" type="Node2D"]
+script = ExtResource("1_wrgwn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(988, 326)
+texture = SubResource("CompressedTexture2D_vnmdn")
+region_enabled = true
+region_rect = Rect2(0, 137.571, 1980, 655.429)
+
+[node name="Projectiles" type="Node2D" parent="."]
+
+[node name="Enemy" parent="." instance=ExtResource("5_o7e0w")]
+position = Vector2(724, 570)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 8
+collision_mask = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1030, 593)
+shape = SubResource("WorldBoundaryShape2D_1n5jn")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 250)
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_1n5jn")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1980, 250)
+rotation = 4.71239
+shape = SubResource("WorldBoundaryShape2D_1n5jn")
+
+[node name="Mode_switcher" type="Node" parent="."]
+
+[node name="Battle" type="Node" parent="Mode_switcher"]
+
+[node name="Quiz" type="Node" parent="Mode_switcher"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" parent="CanvasLayer" instance=ExtResource("4_4v5w5")]
+offset_left = -18.0
+offset_top = -1.0
+offset_right = -18.0
+offset_bottom = -1.0
+
+[node name="Main1" parent="." instance=ExtResource("5_fw836")]
+offset = Vector2(0, -10)
+transform = Transform2D(1, 0, 0, 1, 0, -10)
